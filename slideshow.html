@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            
+        }
+        body{
+             background-color: rgb(1,56,113);
+        }
+        #parent{
+            height: 100vh;
+            width: 100%;
+            /* border: 1px solid red; */
+            display: grid;
+            
+        }
+        .slider{
+            position: relative;
+            display: flex;
+            height: 378px;
+            width: 60%;
+            border: 10px solid white;
+            margin: auto;
+            box-shadow: 0px 0px 10px white;
+            margin-top: 150px;
+
+    
+            
+        }
+        .button{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            /* border: 1px solid black; */
+            display: flex;
+        }
+        .sliderbtn{
+            width: 98%;
+            height: 98%;
+            /* border: 1px solid white; */
+            margin: auto;
+            display: flex;
+
+        }
+        .left{
+            /* position: absolute; */
+            width: 100px;
+            height: 90%;
+            color: aliceblue;
+            /* border: 1px solid red;  */
+            margin: auto;
+            margin-left: 0px;
+            display: flex;
+
+        }
+        .right{
+            width: 100px;
+            height: 90%;
+            /* border: 1px solid red; */
+            margin: auto;
+            margin-right: 0px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+        }
+        .thick-arrow-left {
+            width: 25px;
+            height: 25px;
+            border: 10px solid white;
+            border-left: 0;
+            border-top: 0;   
+            transform: rotate(135deg);
+            justify-content: center;
+            align-self: center;           
+        }
+        .thick-arrow-right {
+            width: 25px;
+            height: 25px;
+            border: 10px solid white;
+            border-left: 0;
+            border-top: 0;
+            transform: rotate(315deg);
+
+        }
+        .start{
+            height: 100px;
+            width: 100px;
+            /* border: 1px solid white; */
+            margin: auto;
+            margin-top: 10px;
+            display: flex;
+        }
+        button{
+            width: 80px;
+            height: 35px;
+            margin: auto;
+            border-radius: 10px;
+            border: none;
+            background-color: rgb(0,194,106);
+            color: white;
+            font-size: 15px;
+            /* border: 2px solid white; */
+            box-shadow: 0px 0px 10px white;
+        }
+        button:hover{
+            color: rgb(0,194,106);
+            background-color: white;
+        }
+    
+
+
+
+
+    </style>
+</head>
+<body>
+    <div id="parent">
+        <div class="slider">
+            <img src="" alt="">
+            <div class="button">
+                <div class="sliderbtn">
+                    <div class="left">
+                     <div onclick="prev()"class="thick-arrow-left"></div>
+                    </div>
+                    <div class="right">
+                        <div onclick="next()"class="thick-arrow-right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="start">
+            <button onclick="play()">Start/Stop</button>
+        </div>
+    </div>
+</body>
+<script>
+  arr = [
+     
+     "https://wallpapercave.com/wp/p3HjAFU.jpg",
+     "https://free4kwallpapers.com/uploads/originals/2015/07/28/nature-wallpaper-hd-1080p-free-download-e1363654895538.jpg",
+     "https://img.freepik.com/free-photo/wild-deer-nature_23-2151474220.jpg?size=626&ext=jpg&ga=GA1.1.553209589.1714953600&semt=ais",
+     "https://www.hdwallpapers.in/download/cool_unique_nature_hd_unique-1280x720.jpg",
+     "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832_1280.jpg",
+     "https://wallpapers.com/images/hd/hd-nature-tree-on-lake-83pp123hsqe3vdtc.jpg",
+     "https://png.pngtree.com/thumb_back/fh260/background/20230521/pngtree-wallpaper-hd-nature-forest-lake-lake-in-autumn-image_2682116.jpg",
+     "https://c4.wallpaperflare.com/wallpaper/804/892/898/pc-nature-hd-pictures-1920x1080-wallpaper-preview.jpg",
+     "https://static.vecteezy.com/system/resources/previews/034/054/235/non_2x/a-serene-tranquil-lake-nestled-in-a-verdant-valley-surrounded-by-towering-cliffs-and-cascading-waterfalls-nature-background-ai-generative-photo.jpg",
+     "https://wallpapers.com/images/hd/8k-ultra-hd-nature-dock-o1sgdrpuarjf9j0j.jpg",
+     "https://static.vecteezy.com/system/resources/previews/032/378/531/non_2x/flowers-in-the-field-sunrise-flowers-nature-nature-hd-wallpaper-ai-generated-free-photo.jpg",
+
+  ]
+
+  let img = document.querySelector(".slider>img")
+  let currentimg = 0
+  let interval
+
+  img.setAttribute("src",arr[currentimg])
+
+  function prev (){
+    currentimg--
+    stopslider()
+    if(currentimg<0){
+        currentimg = arr.length-1
+    }
+    img.setAttribute("src",arr[currentimg])
+  }
+  function next (){
+    currentimg++
+    stopslider()
+    if(currentimg>= arr.length){
+        currentimg=0
+    }
+    img.setAttribute("src",arr[currentimg])
+  }
+
+
+  function startslider (){
+    interval = setInterval(function(){
+        currentimg++
+        if(currentimg>= arr.length){
+        currentimg=0
+    }
+    img.setAttribute("src",arr[currentimg])
+    },2000)
+  }
+
+  function stopslider (){
+    clearInterval(interval)
+    interval = null
+  }
+
+
+
+  function play (){
+    if(interval){
+        stopslider()
+        interval = null
+    }
+    else{
+        startslider()
+    }
+  }
+
+</script>
+</html>
